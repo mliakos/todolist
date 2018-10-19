@@ -1,0 +1,185 @@
+/*General Rules*/
+
+body {
+    margin: 0 auto;
+    padding: 0 auto;
+    background: beige;
+}
+
+#wrapper {
+    margin-right: 0 auto;
+    margin-left: 0 auto;
+    padding: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+h1{
+    font-family: 'Open Sans', sans-serif;
+    font-size: 50px;
+    margin-top: 100px;
+    text-align: center;
+}
+
+footer{
+    font-family: 'Open Sans', sans-serif;
+    font-size: 15px;
+    margin-top: 100px;
+    text-align: center;
+}
+
+p#todo{
+    text-align: center;
+    font-size: 35px;
+    font-family: 'Open Sans', sans-serif;
+    padding-top: 100px;
+    display: none;
+}
+
+p#done{
+    text-align: center;
+    font-size: 35px;
+    font-family: 'Open Sans', sans-serif;
+    padding: 15px;
+    display: none;
+}
+
+::placeholder{
+    color: lightsteelblue;
+}
+
+
+/*Buttons and Input*/
+
+button, input{
+    outline: none;
+}
+
+
+#main_input {
+    width: 30%;
+    display: block;
+    margin: 0 auto;
+    margin-top: 0%;
+    width: 450px;
+    height: 40px;
+    border-radius: 7px;
+    border-style: none;
+    font-size: 15px;
+    font-family: 'Open Sans', sans-serif;
+    box-shadow: 1px 1px 10px 1px grey;
+}
+
+#submit_btn:hover {
+    background-color: #ecf7f9;
+    cursor: pointer;
+}
+
+#submit_btn{
+    box-shadow: 1px 1px 10px 1px grey;
+}
+
+
+button {
+    width: 30%;
+    display: block;
+    margin: 0 auto;
+    margin-top: 30px;
+    width: 90px;
+    height: 40px;
+    border-radius: 2px;
+    border-style: none;
+    background-color: white;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 18px;
+}
+
+.remove, .complete {
+    height: 25px;
+}
+
+.remove:hover{
+    fill: red;
+    cursor: pointer;
+}
+
+.complete:hover{
+    fill: #25AE88;
+    cursor: pointer;
+}
+
+/*Button on Done list*/
+
+ul#completed_tasks li div button.complete:hover{
+    fill: black;
+}
+
+ul#completed_tasks li div button.complete{
+    fill: #25AE88;
+}
+
+/*List Items*/
+
+ul li {
+    background-color: white;
+    border-radius: 7px;
+    width: 450px;
+    height: 20px;
+    margin: 0 auto;
+    margin-top: 10px;
+    font-family: 'Open Sans', sans-serif;
+    list-style: none;
+    box-shadow: 0px 1px 2px rgba(45, 60, 80, 0.5);
+    position: relative;
+    padding: 14px
+}
+
+ul li .buttons {
+    height: 40px;
+    width: 100px;
+    top: 0;
+    right: 0;
+    position: absolute;
+}
+
+ul#tasks li:first-of-type {
+    margin-top: 10px;
+}
+
+ul#completed_tasks li:first-of-type {
+    margin-top: -15px;
+}
+
+
+ul li .buttons button {
+    height: 35px;
+    width: 50px;
+    padding: 10px;
+    margin: 0px;
+    position: absolute;
+}
+
+ul li button:last-child {
+    margin-left: 50px;
+    width: 40px;
+    position: absolute;
+    margin-top: 0px;
+}
+
+ul li button:last-of-type:before {
+    content: '';
+    width: 1px;
+    height: 28px;
+    position: absolute;
+    top: 10px;
+    left: 0px;
+    background-color: #edf0f1;
+}
+
+svg{
+    transition:fill 0.3s ease;
+}
+
+
+
