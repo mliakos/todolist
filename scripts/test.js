@@ -30,7 +30,6 @@ function addItem(value) {
     var remove = document.createElement('button'); //Remove Button
     remove.classList.add('remove'); // class = "remove"
     remove.innerHTML = removeSVG; // <button> SVG CODE </button>
-    var sub_button = document.getElementById('submit_btn');
     
     //Event Listener for removing item
     remove.addEventListener('click', removeItem);
@@ -50,9 +49,7 @@ function addItem(value) {
     
     //Appending <li> to list
     list.insertBefore(item, list.childNodes[0]);
-    
-    sub_button.addEventListener('click', hideListA);
-    sub_button.addEventListener('click', hideListB);
+
     remove.addEventListener('click', hideListA);
     complete.addEventListener('click', hideListA);
     remove.addEventListener('click', hideListB);
@@ -86,6 +83,8 @@ sub_button.addEventListener('click',function(){ //Event Listener
     if(value){
         addItem(value)
         main_input.value='' //Delete form input when submited
+        hideListA();
+        hideListB();
     }; //Adding item to list
 })
 
@@ -126,8 +125,6 @@ function hideListB(){
         document.querySelector('p#done').style.display='block'}
     else{document.querySelector('p#done').style.display='none'}  
 }
-
-window.setInterval(hideListA,10);
 
 
 
