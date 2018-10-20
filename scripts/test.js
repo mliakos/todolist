@@ -54,8 +54,6 @@ function addItem(value) {
     complete.addEventListener('click', hideListA);
     remove.addEventListener('click', hideListB);
     complete.addEventListener('click', hideListB);
-
-    hideListA();
 }
 
 function removeItem() {
