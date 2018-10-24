@@ -39,7 +39,7 @@ if($num>0){
             "body" => $body,
             "status" => $status,
             "category" => $category,
-            "created" => $created,
+            "created" => $created
         );
  
         array_push($notes_arr["notes"], $note_item);

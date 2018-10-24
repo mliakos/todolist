@@ -33,8 +33,9 @@ p#todo{
     text-align: center;
     font-size: 35px;
     font-family: 'Open Sans', sans-serif;
-    padding-top: 100px;
+    padding-top: 50px;
     display: none;
+    margin: 0 auto;
 }
 
 p#done{
@@ -64,11 +65,11 @@ button, input{
     margin-top: 0%;
     width: 450px;
     height: 40px;
-    border-radius: 7px;
+    border-radius: 0px;
     border-style: none;
     font-size: 15px;
     font-family: 'Open Sans', sans-serif;
-    box-shadow: 1px 1px 10px 1px grey;
+    box-shadow: 2px 0px 10px 2px grey;
 }
 
 #submit_btn:hover {
@@ -88,7 +89,7 @@ button {
     margin-top: 30px;
     width: 90px;
     height: 40px;
-    border-radius: 2px;
+    border-radius: 0px;
     border-style: none;
     background-color: white;
     font-family: 'Open Sans', sans-serif;
@@ -123,14 +124,14 @@ ul#completed_tasks li div button.complete{
 
 ul li {
     background-color: white;
-    border-radius: 7px;
+    border-radius: 0px;
     width: 450px;
     height: 20px;
     margin: 0 auto;
     margin-top: 10px;
     font-family: 'Open Sans', sans-serif;
     list-style: none;
-    box-shadow: 0px 1px 2px rgba(45, 60, 80, 0.5);
+    box-shadow: 2px 0px 10px 2px grey;
     position: relative;
     padding: 14px
 }

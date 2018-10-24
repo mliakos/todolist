@@ -11,6 +11,7 @@ class Note{
     public $body;
     public $status;
     public $category;
+    public $created;
 
     //constructor with $db as database connection
 
@@ -22,7 +23,7 @@ class Note{
     function get_all(){
 
         // select all query
-        $query = "SELECT id, body, status, category
+        $query = "SELECT id, body, status, category, created
         FROM . $this->table_name";
 
         //prepare query statement
