@@ -75,17 +75,24 @@ function completeItem() {
     target.insertBefore(item, target.childnodes);
 }
 
-  
+ //Submit button// 
 var sub_button = document.getElementById('submit_btn'); //submit button
 
 sub_button.addEventListener('click',function(){ //Event Listener
     var value = document.getElementById("main_input").value;//Grabbing input value
+    var xhttp = new XMLHttpRequest();
+    //Adding item to list
     if(value){
         addItem(value)
         main_input.value='' //Delete form input when submited
         hideListA();
         hideListB();
-    }; //Adding item to list
+    }; 
+
+    //Ajax Request
+    xhttp.open("POST", "/todolist/api/note/create.php", true);
+    xhttp.setRequestHeader("Content-type", "application/json");
+    xhttp.send(JSON.stringify({"body" : value,"category" : "test cat"}));
 })
 
 //Remove To-do title if list is empty
