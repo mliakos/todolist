@@ -1,6 +1,14 @@
 
-$.get( "/todolist/api/note/get_all.php", function( data ){
-    console.log(data);
+
+//Fetching notes from database
+$.get( "/todolist/api/note/get_all.php", function(data){
+    for(i=0; i<(data.notes.length); i++){ //Iterating through notes in received array
+        status = (data.notes[i].status);
+        itemFetch(data.notes[i].body); //Adding notes in document
+        
+    }
+    hideListA(); //Checking whether list should be hidden or not
+    hideListB(); //Checking whether list should be hidden or not
 })
 
 //SVG codes variable declaration
@@ -23,9 +31,45 @@ input.addEventListener("keyup", function(event) {
 
 //Various Functions
 
-function addItem(value) {
-    var list = document.getElementById('tasks'); //Unordered List
+//Fetch item from database and display it on a list
+function itemFetch(value){
+    var list = status == 0 ? document.getElementById('tasks') : document.getElementById('completed_tasks'); //Define list based upon note status code
+    var item = document.createElement('li'); //List Item
+    item.innerText = value; //<li> value
     
+    var buttons = document.createElement('div'); // Div
+    buttons.classList.add('buttons'); // class = "buttons"
+    
+    var remove = document.createElement('button'); //Remove Button
+    remove.classList.add('remove'); // class = "remove"
+    remove.innerHTML = removeSVG; // <button> SVG CODE </button>
+    
+    //Event Listener for removing item
+    remove.addEventListener('click', removeItem);
+
+    var complete = document.createElement('button'); //Complete Button
+    complete.classList.add ('complete'); // class = "complete"
+    complete.innerHTML = completeSVG; // <button> SVG CODE </button>
+    
+    //Event Listener for completing item
+    complete.addEventListener('click', completeItem);
+    
+    
+    //Appending SVG code to Button Tags
+    buttons.appendChild(complete); 
+    buttons.appendChild(remove); 
+    item.appendChild(buttons);
+    
+    //Appending <li> to list
+    list.insertBefore(item, list.childNodes[0]);
+
+    remove.addEventListener('click', hideListA);
+    complete.addEventListener('click', hideListA);
+    remove.addEventListener('click', hideListB);
+    complete.addEventListener('click', hideListB);
+}
+function addItem(value) {
+    var list =  document.getElementById('tasks'); //Define item list as "To-Do"
     var item = document.createElement('li'); //List Item
     item.innerText = value; //<li> value
     
@@ -103,24 +147,11 @@ sub_button.addEventListener('click',function(){ //Event Listener
 //Remove To-do title if list is empty
 
 var firstList = document.querySelector('ul#tasks');
-//
-//window.setInterval(function (){
-//  if(firstList.childElementCount == 0){
-//    document.querySelector('p#todo').style.display='none'}
-//else{document.querySelector('p#todo').style.display='block'}  
-//}, 10)
+
 
 //Remove Done title if list is empty
 
 var secondList = document.querySelector('ul#completed_tasks');
-//
-//
-//window.setInterval(function (){
-//  if(secondList.childElementCount == 0){
-//    document.querySelector('p#done').style.display='none'}
-//else{document.querySelector('p#done').style.display='block'}  
-//}, 10)
-
 
 
 //Removing paragraphs functions (if lists are empty)
