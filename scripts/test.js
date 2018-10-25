@@ -2,9 +2,6 @@
 $.get( "/todolist/api/note/get_all.php", function( data ){
     console.log(data);
 })
-.fail(function(error){
-    console.log(error)
-})
 
 //SVG codes variable declaration
 
