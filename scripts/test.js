@@ -126,13 +126,21 @@ function removeItem() {
 function completeItem() {
     var item = this.parentNode.parentNode;
     var parent = item.parentNode;
-    var id = parent.id;
+    var id = parent.id; // List id value (HTML)
+    var s_id = item.id; // Note id value (DATABASE)
+    var note_status = (id === 'tasks') ? "1" : "0"; // toggle: JSON status-key value to send to DB, depending on current status
+    var xhttp = new XMLHttpRequest();
     
     //Check if item should be added to the completed list or to be re-added the todo list 
     var target = (id === 'tasks') ? document.getElementById('completed_tasks'):document.getElementById('tasks');
     
     parent.removeChild(item);
     target.insertBefore(item, target.childnodes);
+
+    //Ajax Request
+    xhttp.open("POST", "/todolist/api/note/update_status.php", true);
+    xhttp.setRequestHeader("Content-type", "application/json");
+    xhttp.send(JSON.stringify({"id" : s_id, "status" : note_status}));
 }
 
  //Submit button// 

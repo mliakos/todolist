@@ -82,4 +82,27 @@ class Note{
         return false;
         
     }
+
+    function update_status(){
+ 
+        // update query
+        $query = "UPDATE " . $this->table_name . " SET status = :status WHERE id = :id";
+     
+        // prepare query statement
+        $stmt = $this->conn->prepare($query);
+     
+        // sanitize
+        $this->status=htmlspecialchars(strip_tags($this->status));
+     
+        // bind new values
+        $stmt->bindParam(':id', $this->id);
+        $stmt->bindParam(':status', $this->status);
+     
+        // execute the query
+        if($stmt->execute()){
+            return true;
+        }
+     
+        return false;
+    }
 }
