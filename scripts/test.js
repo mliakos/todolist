@@ -1,9 +1,8 @@
-
-
 //Fetching notes from database
 $.get( "/todolist/api/note/get_all.php", function(data){
     for(i=0; i<(data.notes.length); i++){ //Iterating through notes in received array
         status = (data.notes[i].status);
+        id = (data.notes[i].id);
         itemFetch(data.notes[i].body); //Adding notes in document
         
     }
@@ -34,8 +33,11 @@ input.addEventListener("keyup", function(event) {
 //Fetch item from database and display it on a list
 function itemFetch(value){
     var list = status == 0 ? document.getElementById('tasks') : document.getElementById('completed_tasks'); //Define list based upon note status code
-    var item = document.createElement('li'); //List Item
+    var item = document.createElement('li'); //Create item
+    item.setAttribute("id", id);
+
     item.innerText = value; //<li> value
+    
     
     var buttons = document.createElement('div'); // Div
     buttons.classList.add('buttons'); // class = "buttons"
@@ -68,6 +70,8 @@ function itemFetch(value){
     remove.addEventListener('click', hideListB);
     complete.addEventListener('click', hideListB);
 }
+
+//Front-end only JS li appending
 function addItem(value) {
     var list =  document.getElementById('tasks'); //Define item list as "To-Do"
     var item = document.createElement('li'); //List Item
@@ -108,8 +112,15 @@ function addItem(value) {
 function removeItem() {
     var item = this.parentNode.parentNode;
     var parent = item.parentNode;
+    var id = this.parentNode.parentNode.id;
+    var xhttp = new XMLHttpRequest();
     
     parent.removeChild(item);
+
+    //Ajax Request
+    xhttp.open("POST", "/todolist/api/note/delete.php", true);
+    xhttp.setRequestHeader("Content-type", "application/json");
+    xhttp.send(JSON.stringify({"id" : id}));
 }
 
 function completeItem() {
