@@ -64,11 +64,6 @@ function itemFetch(value){
     
     //Appending <li> to list
     list.insertBefore(item, list.childNodes[0]);
-
-    remove.addEventListener('click', hideListA);
-    complete.addEventListener('click', hideListA);
-    remove.addEventListener('click', hideListB);
-    complete.addEventListener('click', hideListB);
 }
 
 //Front-end only JS li appending
@@ -102,25 +97,21 @@ function addItem(value) {
     
     //Appending <li> to list
     list.insertBefore(item, list.childNodes[0]);
-
-    remove.addEventListener('click', hideListA);
-    complete.addEventListener('click', hideListA);
-    remove.addEventListener('click', hideListB);
-    complete.addEventListener('click', hideListB);
 }
 
 function removeItem() {
     var item = this.parentNode.parentNode;
     var parent = item.parentNode;
     var id = this.parentNode.parentNode.id;
-    var xhttp = new XMLHttpRequest();
-    
-    parent.removeChild(item);
 
-    //Ajax Request
-    xhttp.open("POST", "/todolist/api/note/delete.php", true);
-    xhttp.setRequestHeader("Content-type", "application/json");
-    xhttp.send(JSON.stringify({"id" : id}));
+    $.ajax({
+        type: "POST",
+        url: "/todolist/api/note/delete.php",
+        data: JSON.stringify({"id" : id}),
+        success: parent.removeChild(item)
+      });   
+      hideListA();
+      hideListB();
 }
 
 function completeItem() {
@@ -129,18 +120,23 @@ function completeItem() {
     var id = parent.id; // List id value (HTML)
     var s_id = item.id; // Note id value (DATABASE)
     var note_status = (id === 'tasks') ? "1" : "0"; // toggle: JSON status-key value to send to DB, depending on current status
-    var xhttp = new XMLHttpRequest();
-    
+    $.ajax({
+        type: "POST",
+        url: "/todolist/api/note/update_status.php",
+        data: JSON.stringify({"id" : s_id, "status" : note_status}),
+        success: updateStatus()
+      });
+
+    //var xhttp = new XMLHttpRequest();
+    function updateStatus(){
     //Check if item should be added to the completed list or to be re-added the todo list 
     var target = (id === 'tasks') ? document.getElementById('completed_tasks'):document.getElementById('tasks');
     
     parent.removeChild(item);
     target.insertBefore(item, target.childnodes);
-
-    //Ajax Request
-    xhttp.open("POST", "/todolist/api/note/update_status.php", true);
-    xhttp.setRequestHeader("Content-type", "application/json");
-    xhttp.send(JSON.stringify({"id" : s_id, "status" : note_status}));
+    hideListA();
+    hideListB();
+    }
 }
 
  //Submit button// 
@@ -148,19 +144,23 @@ var sub_button = document.getElementById('submit_btn'); //submit button
 
 sub_button.addEventListener('click',function(){ //Event Listener
     var value = document.getElementById("main_input").value;//Grabbing input value
-    var xhttp = new XMLHttpRequest();
+    
     //Adding item to list
+    function addFunc(){
     if(value){
         addItem(value)
         main_input.value='' //Delete form input when submited
         hideListA();
         hideListB();
     }; 
-
+}
     //Ajax Request
-    xhttp.open("POST", "/todolist/api/note/create.php", true);
-    xhttp.setRequestHeader("Content-type", "application/json");
-    xhttp.send(JSON.stringify({"body" : value,"category" : "test cat"}));
+    $.ajax({
+        type: "POST",
+        url: "/todolist/api/note/create.php",
+        data: JSON.stringify({"body" : value,"category" : "test cat"}),
+        success: addFunc()
+      });
 })
 
 //Remove To-do title if list is empty
