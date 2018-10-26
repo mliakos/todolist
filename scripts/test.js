@@ -127,7 +127,6 @@ function completeItem() {
         success: updateStatus()
       });
 
-    //var xhttp = new XMLHttpRequest();
     function updateStatus(){
     //Check if item should be added to the completed list or to be re-added the todo list 
     var target = (id === 'tasks') ? document.getElementById('completed_tasks'):document.getElementById('tasks');

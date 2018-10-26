@@ -13,26 +13,33 @@ body {
     position: absolute;
     width: 100%;
     height: 100%;
+    min-height: 400px;
+    margin-bottom: 100px;
+    clear: both;
 }
 
 h1{
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Krub', sans-serif;
     font-size: 50px;
     margin-top: 100px;
     text-align: center;
 }
 
 footer{
-    font-family: 'Open Sans', sans-serif;
-    font-size: 15px;
-    margin-top: 100px;
+    position: fixed;
     text-align: center;
+    font-size: 15px;
+    bottom: 0;
+    width: 100%;
+    font-family: 'Krub', sans-serif;
+    background-color: grey;
+    padding: 5px 0px 5px 0px;
 }
 
 p#todo{
     text-align: center;
     font-size: 35px;
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Krub', sans-serif;
     padding-top: 50px;
     display: none;
     margin: 0 auto;
@@ -41,7 +48,7 @@ p#todo{
 p#done{
     text-align: center;
     font-size: 35px;
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Krub', sans-serif;
     padding: 15px;
     display: none;
 }
@@ -68,7 +75,7 @@ button, input{
     border-radius: 0px;
     border-style: none;
     font-size: 15px;
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Krub', sans-serif;
     box-shadow: 2px 0px 10px 2px grey;
 }
 
@@ -92,7 +99,7 @@ button {
     border-radius: 0px;
     border-style: none;
     background-color: white;
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Krub', sans-serif;
     font-size: 18px;
 }
 
@@ -122,9 +129,6 @@ ul#completed_tasks li div button.complete{
 
 /*List Items*/
 
-
-
-
 ul li {
     background-color: white;
     border-radius: 0px;
@@ -132,7 +136,7 @@ ul li {
     word-wrap: break-word;
     margin: 0 auto;
     margin-top: 10px;
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Krub', sans-serif;
     list-style: none;
     box-shadow: 2px 0px 10px 2px grey;
     position: relative;
@@ -183,6 +187,10 @@ ul li button:last-of-type:before {
     left: 0px;
     background-color: #edf0f1;
 }
+
+ul li:last-of-type{
+    margin-bottom: 100px;
+} 
 
 ul{
     padding-left: 0;
