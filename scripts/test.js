@@ -187,14 +187,29 @@ function hideListB(){
     else{document.querySelector('p#done').style.display='none'}  
 }
 
+var register = document.getElementById('registerbtn');
+var login = document.getElementById('loginbtn');
 
 
+register.addEventListener('click', function(){
+    var username = document.getElementById('username').value;
+    var password = document.getElementById('password').value;
+    $.ajax({
+        type: "POST",
+        url: "/todolist/api/user/register.php",
+        data: JSON.stringify({"username" : username,"password" : password}),
+        success: console.log('successfully registered.')
+      });
+})
 
-
-
-
-
-
-
-
+login.addEventListener('click', function(){
+    var username = document.getElementById('username').value;
+    var password = document.getElementById('password').value;
+    $.ajax({
+        type: "POST",
+        url: "/todolist/api/user/login.php",
+        data: JSON.stringify({"username" : username,"password" : password}),
+        success: console.log('successfully logged in.')
+      });
+})
 

@@ -5,25 +5,26 @@ header("Content-Type: application/json; charset=UTF-8");
  
 // include database and object files
 include_once '../config/database.php';
-include_once '../objects/note.php';
+include_once '../objects/user.php';
  
-// instantiate database and note object
+// instantiate database and user object
 $database = new Database();
 $db = $database->getConnection();
  
 // initialize object
-$note = new Note($db);
+$user = new User($db);
  
-// query notes
-$stmt = $note->get_all();
+// query users
+$stmt = $user->get_users();
 $num = $stmt->rowCount();
  
-// check if more than 0 notes found
+// check if more than 0 users found
 if($num>0){
  
-    // notes array
-    $notes_arr=array();
-    $notes_arr["notes"]=array();
+    // users array
+    $users_arr=array();
+    $users_arr["users"]=array();
+    
  
     // retrieve our table contents
     // fetch() is faster than fetchAll()
@@ -34,22 +35,23 @@ if($num>0){
         // just $name only
         extract($row); 
  
-        $note_item=array(
+        $user_item=array(
             "id" => $id,
-            "body" => $body,
-            "status" => $status,
-            "category" => $category,
+            "username" => $username,
+            "email" => $email,
+            "password" => $password,
+            "remember_token" => $remember_token,
             "created" => $created
         );
  
-        array_push($notes_arr["notes"], $note_item);
+        array_push($users_arr["users"], $user_item);
     }
      
     // set response code - 200 OK
     http_response_code(200);
  
-    // show notes data in json format
-    echo json_encode($notes_arr);
+    // show users data in json format
+    echo json_encode($users_arr);
 }
  
 else{
@@ -57,9 +59,9 @@ else{
     // set response code - 404 Not found
     http_response_code(404);
  
-    // tell the user no notes found
+    // tell the user no users found
     echo json_encode(
-        array("message" => "No notes found.")
+        array("message" => "No users found.")
     );
 }
 ?>
