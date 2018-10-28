@@ -13,32 +13,37 @@ $database = new Database();
 $db = $database->getConnection();
 
 $user = new User($db);
+$username_exists = $user->usernameExists();
 
-// $stmt = $user->get_users();
-// $fetched = $stmt->fetchAll();
 
 $data = json_decode(file_get_contents("php://input"));
 
 if(
     !empty($data->username)&&
     !empty($data->password)
-
 ){
     $user->username = $data->username;
     $user->password = $data->password;
 
-    if($user->register()){
+    if($user->usernameExists()){
+
+        http_response_code(422);
+
+        echo json_encode(array("message" => "Username already taken. Please choose another one."));
+    }
+
+    elseif($user->register()){
 
         http_response_code(201);
 
-        echo json_encode(array("message" => "User was registered"));
+        echo json_encode(array("message" => "User successfully registered!"));
     }
 
     else{
-
+        
         http_response_code(503);
 
-        echo json_encode(array("message" => "Unable to register user"));
+        echo json_encode(array("message" => "Unable to register user."));
     }
 }
 
@@ -46,6 +51,6 @@ else{
 
     http_response_code(400);
 
-    echo json_encode(array("message" => "Unable to register user. Data is incomplete"));
+    echo json_encode(array("message" => "Unable to register user. Data is incomplete."));
 }
 ?>

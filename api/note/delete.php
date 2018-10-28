@@ -24,7 +24,7 @@ $data = json_decode(file_get_contents("php://input"));
 $note->id = $data->id;
  
 // delete the note
-if($note->delete()){
+if(!empty($note->id) && $note->delete()){
  
     // set response code - 200 ok
     http_response_code(200);

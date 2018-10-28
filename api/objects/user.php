@@ -46,7 +46,7 @@ class User{
 
          $stmt = $this->conn->prepare($query);
 
-         // sanitize
+    // sanitize
     $this->username=htmlspecialchars(strip_tags($this->username));
  
     // bind given username value
@@ -73,12 +73,9 @@ class User{
         return true;
     }
  
-    // return false if email does not exist in the database
+    // return false if username does not exist in the database
     return false;
 }
- 
-// update() method will be here
-    }
 
     function get_users(){
 
@@ -93,5 +90,10 @@ class User{
         $stmt->execute();
 
         return $stmt;
+}
+ 
+// update() method will be here
     }
+
+    
     
