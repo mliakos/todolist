@@ -19,7 +19,7 @@ class Note{
         $this->conn = $db;
     }
 
-    //get notes
+    //get all notes
     function get_all(){
 
         // select all query
@@ -34,6 +34,21 @@ class Note{
 
         return $stmt;
 }
+
+// function get_user_notes(){
+
+//     // select all query
+//     $query = "SELECT id, body, status, category, created
+//     FROM . $this->table_name WHERE";
+
+//     //prepare query statement
+//     $stmt = $this->conn->prepare($query);
+
+//     //execute query
+//     $stmt->execute();
+
+//     return $stmt;
+// }
 
     function create(){
 

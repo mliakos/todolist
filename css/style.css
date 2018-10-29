@@ -21,9 +21,9 @@ body {
 h1{
     font-family: 'Krub', sans-serif;
     font-size: 50px;
-    margin-top: 100px;
     text-align: center;
-}
+    margin-top: 1000px;
+} 
 
 footer{
     text-align: center;
@@ -215,6 +215,14 @@ svg{
 
 .form-heading{
     margin-bottom: 100px;
+}
+
+#log_response, #reg_response{
+    margin-top: 10px;
+}
+
+#logout_response{
+    margin-top: 100px;
 }
 
 

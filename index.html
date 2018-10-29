@@ -11,24 +11,23 @@
 </head>
 
 <body>
-
-    <div id="wrapper">
-            <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-                    <a class="navbar-brand" href="#">To-do List</a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                        <div class="navbar-nav">
-                            <a class="nav-item nav-link" href="#" id='home'>Home</a>
-                            <a class="nav-item nav-link" href="#" id='sign_up'>Sign Up</a>
-                            <a class="nav-item nav-link" href="#" id='login'>Login</a>
-                            <a class="nav-item nav-link" href="#" id='logout'>Logout</a> 
-                        </div>
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+                <a class="navbar-brand" href="#">To-do List</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav">
+                        <a class="nav-item nav-link" href="#" id='home'>Home</a>
+                        <a class="nav-item nav-link" href="#" id='sign_up'>Sign Up</a>
+                        <a class="nav-item nav-link" href="#" id='login'>Login</a>
+                        <a class="nav-item nav-link" href="#" id='logout'>Logout</a> 
                     </div>
-                </nav>
+                </div>
+            </nav>
+    <div id="wrapper">
+            <div id="logout_response"></div>
                 <div id="reg_form" class="container">
-                    <h1 class="form-heading">Signup here!</h1>
                     <div class="login-form">
                     <div class="main-div">
                         <div class="panel">
@@ -54,10 +53,11 @@
                     
                         </form>
                         </div>
-                    </div></div>
+                    </div>
+                    <div id="reg_response"></div>
+                </div>
 
                     <div id="log_form" class="container">
-                        <h1 class="form-heading">Please login</h1>
                         <div class="login-form">
                         <div class="main-div">
                             <div class="panel">
@@ -83,9 +83,11 @@
                         
                             </form>
                             </div>
-                        </div></div>
+                        </div>
+                    </div>
 
                         <div id="home_page">
+                            <div id="log_response"></div>
                             <input type="text" class="form-control" id="main_input" placeholder="  Take a note..">
                             <button type="button" class="btn btn-primary" id="submit_btn">SUBMIT</button>
                 
