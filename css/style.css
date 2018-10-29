@@ -70,11 +70,8 @@ button, input{
     margin-top: 10%;
     width: 450px;
     height: 40px;
-    border-radius: 0px;
-    border-style: none;
     font-size: 15px;
     font-family: 'Krub', sans-serif;
-    box-shadow: 2px 0px 10px 2px grey;
 }
 
  #submit_btn{
@@ -131,7 +128,7 @@ ul#completed_tasks li div button.complete{
 
 ul li {
     background-color: white;
-    border-radius: 0px;
+    border-radius: 4px;
     max-width: 450px;
     word-wrap: break-word;
     margin: 0 auto;
@@ -210,6 +207,14 @@ svg{
 #log_form{
     display: none;
     margin-top: 200px;
+}
+
+#logout{
+    display: none;
+}
+
+.form-heading{
+    margin-bottom: 100px;
 }
 
 
