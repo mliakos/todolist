@@ -26,15 +26,13 @@ h1{
 }
 
 footer{
-    position: fixed;
     text-align: center;
     font-size: 15px;
-    bottom: 0;
     width: 100%;
     font-family: 'Krub', sans-serif;
-    background-color: grey;
-    padding: 5px 0px 5px 0px;
-}
+    background-color: #343a40;
+    color: white;
+} 
 
 p#todo{
     text-align: center;
@@ -69,7 +67,7 @@ button, input{
     width: 30%;
     display: block;
     margin: 0 auto;
-    margin-top: 0%;
+    margin-top: 10%;
     width: 450px;
     height: 40px;
     border-radius: 0px;
@@ -79,14 +77,16 @@ button, input{
     box-shadow: 2px 0px 10px 2px grey;
 }
 
-#submit_btn:hover {
-    background-color: #ecf7f9;
-    cursor: pointer;
-}
-
-#submit_btn{
-    box-shadow: 1px 1px 10px 1px grey;
-}
+ #submit_btn{
+    width: 30%;
+    display: block;
+    margin: 0 auto;
+    margin-top: 30px;
+    width: 90px;
+    height: 40px;
+    font-family: 'Krub', sans-serif;
+    font-size: 18px;
+} 
 
 
 button {
@@ -198,6 +198,18 @@ ul{
 
 svg{
     transition:fill 0.3s ease;
+}
+
+/*Bootsrap CSS*/
+
+#reg_form{
+    display: none;
+    margin-top: 200px;
+}
+
+#log_form{
+    display: none;
+    margin-top: 200px;
 }
 
 

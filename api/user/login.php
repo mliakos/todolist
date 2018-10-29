@@ -31,7 +31,7 @@ include_once '../libs/SignatureInvalidException.php';
 include_once '../libs/JWT.php';
 use \Firebase\JWT\JWT;
  
-// check if email exists and if password is correct
+// check if username exists and if password is correct
 if($username_exists && password_verify($data->password, $user->password)){
  
     $token = array(
@@ -41,7 +41,7 @@ if($username_exists && password_verify($data->password, $user->password)){
        "nbf" => $nbf,
        "data" => array(
            "id" => $user->id,
-           "email" => $user->email
+           "username" => $user->username
        )
     );
  

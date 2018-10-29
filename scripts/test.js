@@ -1,5 +1,5 @@
 //Fetching notes from database
-$.get( "/todolist/api/note/get_all.php", function(data){
+function getNotes(){$.get( "/todolist/api/note/get_all.php", function(data){
     for(i=0; i<(data.notes.length); i++){ //Iterating through notes in received array
         status = (data.notes[i].status);
         id = (data.notes[i].id);
@@ -9,6 +9,9 @@ $.get( "/todolist/api/note/get_all.php", function(data){
     hideListA(); //Checking whether list should be hidden or not
     hideListB(); //Checking whether list should be hidden or not
 })
+}
+
+getNotes();
 
 //SVG codes variable declaration
 
@@ -192,8 +195,8 @@ var login = document.getElementById('loginbtn');
 
 
 register.addEventListener('click', function(){
-    var username = document.getElementById('username').value;
-    var password = document.getElementById('password').value;
+    var username = document.getElementById('reg_username').value;
+    var password = document.getElementById('reg_password').value;
     $.ajax({
         type: "POST",
         url: "/todolist/api/user/register.php",
@@ -203,13 +206,36 @@ register.addEventListener('click', function(){
 })
 
 login.addEventListener('click', function(){
-    var username = document.getElementById('username').value;
-    var password = document.getElementById('password').value;
+    var username = document.getElementById('log_username').value;
+    var password = document.getElementById('log_password').value;
     $.ajax({
         type: "POST",
         url: "/todolist/api/user/login.php",
         data: JSON.stringify({"username" : username,"password" : password}),
         success: console.log('successfully logged in.')
       });
+})
+
+//Page elements toggling
+
+//Register Form
+document.getElementById("sign_up").addEventListener('click', function(){
+    document.querySelector('div#home_page').style.display = 'none';
+    document.querySelector('#log_form').style.display = 'none';
+    document.querySelector('#reg_form').style.display = 'block';
+})
+
+//Login Form
+document.getElementById("login").addEventListener('click', function(){
+    document.querySelector('div#home_page').style.display = 'none';
+    document.querySelector('#reg_form').style.display = 'none';
+    document.querySelector('#log_form').style.display = 'block';
+})
+
+//Homepage
+document.getElementById("home").addEventListener('click', function(){
+    document.querySelector('div#home_page').style.display = 'block';
+    document.querySelector('#reg_form').style.display = 'none';
+    document.querySelector('#log_form').style.display = 'none';
 })
 
