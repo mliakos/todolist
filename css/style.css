@@ -217,11 +217,11 @@ svg{
     margin-bottom: 100px;
 }
 
-#log_response, #reg_response{
+#log2_response, #reg_response{
     margin-top: 10px;
 }
 
-#logout_response{
+#logout_response, #log_response{
     margin-top: 100px;
 }
 

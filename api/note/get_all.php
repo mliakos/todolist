@@ -38,7 +38,7 @@ if($num>0){
             "id" => $id,
             "body" => $body,
             "status" => $status,
-            "category" => $category,
+            "user_id" => $user_id,
             "created" => $created
         );
  

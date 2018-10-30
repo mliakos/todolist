@@ -10,7 +10,7 @@ class Note{
     public $id;
     public $body;
     public $status;
-    public $category;
+    public $user_id;
     public $created;
 
     //constructor with $db as database connection
@@ -23,7 +23,7 @@ class Note{
     function get_all(){
 
         // select all query
-        $query = "SELECT id, body, status, category, created
+        $query = "SELECT id, body, status, user_id, created
         FROM . $this->table_name";
 
         //prepare query statement
@@ -38,7 +38,7 @@ class Note{
 // function get_user_notes(){
 
 //     // select all query
-//     $query = "SELECT id, body, status, category, created
+//     $query = "SELECT id, body, status, user_id, created
 //     FROM . $this->table_name WHERE";
 
 //     //prepare query statement
@@ -53,18 +53,18 @@ class Note{
     function create(){
 
         //query to insert
-        $query = "INSERT INTO " . $this->table_name . " (body,category) VALUES(:body, :category)";
+        $query = "INSERT INTO " . $this->table_name . " (body,user_id) VALUES(:body, :user_id)";
         
         //prepare query 
         $stmt = $this->conn->prepare($query);
 
          //sanitize
         $this->body=htmlspecialchars(strip_tags($this->body));
-        $this->category=htmlspecialchars(strip_tags($this->category));
+        $this->user_id=htmlspecialchars(strip_tags($this->user_id));
 
         //bind values
         $stmt->bindParam(":body", $this->body);
-        $stmt->bindParam(":category", $this->category);
+        $stmt->bindParam(":user_id", $this->user_id);
         
          //execute query
          if($stmt->execute()){

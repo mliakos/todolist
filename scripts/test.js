@@ -172,7 +172,7 @@ var sub_button = document.getElementById('submit_btn'); //submit button
 
 sub_button.addEventListener('click',function(){ //Event Listener
     var value = document.getElementById("main_input").value;//Grabbing input value
-    
+    var jwt = localStorage.getItem('jwt');
     //Adding item to list
     function addFunc(){
     if(value){
@@ -186,7 +186,9 @@ sub_button.addEventListener('click',function(){ //Event Listener
     $.ajax({
         type: "POST",
         url: "/todolist/api/note/create.php",
-        data: JSON.stringify({"body" : value,"category" : "test cat"}),
+        beforeSend: function(request){          // Attaching JWT to header
+            request.setRequestHeader('Authorization', 'Bearer ' + jwt)},
+        data: JSON.stringify({"body" : value}),
         success: addFunc()
       });
 })
@@ -258,7 +260,7 @@ login.addEventListener('click', function(){
         url: "/todolist/api/user/login.php",
         data: JSON.stringify({"username" : username,"password" : password}),
         success: function(result){localStorage.setItem("jwt", result.jwt);
-        $('#log_response').html("<div class='alert alert-success'>Successful login! Your notes are at the homepage.</div>");
+        $('#log_response').html("<div class='alert alert-success'>Successful login! You can now start creating tasks.</div>");
         document.getElementById('logout').style.display = 'block';
         document.getElementById('login').style.display = 'none';
         document.getElementById('sign_up').style.display = 'none';
@@ -268,7 +270,7 @@ login.addEventListener('click', function(){
     },
         error: function(xhr, resp, text){
             // on error, tell the user login has failed & empty the input boxes
-            $('#log_response').html("<div class='alert alert-danger'>Login failed. Username or password is incorrect.</div>");
+            $('#log2_response').html("<div class='alert alert-danger'>Login failed. Username or password is incorrect.</div>");
             document.getElementById('log_username').value=''
             document.getElementById('log_password').value=''
     }
@@ -313,4 +315,21 @@ document.getElementById("home").addEventListener('click', function(){
     $('#logout_response').html('');
     $('#reg_response').html('');
 })
+
+sub_button.click(function(){
+    var jwt = localStorage.getItem('jwt');
+    $.ajax({
+        url: '/todolist/api/note/create.php',
+        beforeSend: function(request){
+            request.setRequestHeader('Authorization', 'Bearer ' + jwt);
+        },
+        type: 'POST',
+        success: function(data) {
+            // Decode and show the returned data nicely.
+        },
+        error: function() {
+            alert('error');
+        }
+    });
+});
 
