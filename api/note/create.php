@@ -72,10 +72,6 @@ if($jwt){
         // set response code
         http_response_code(200);
  
-        // show user details
-        echo json_encode(array(
-            "message" => "Access granted.",
-        ));
 
         $note = new Note($db);
  
@@ -100,7 +96,7 @@ if($jwt){
                 http_response_code(201);
         
                 // tell the user
-                echo json_encode(array("message" => "Note was created."));
+                echo json_encode(array("uid = ".$user_id => "Note was created."));
             }
         
             // if unable to create the note, tell the user

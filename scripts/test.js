@@ -1,17 +1,48 @@
+var jwtUsername = localStorage.getItem('username');
+
+
+var firstList = document.querySelector('ul#tasks');
+var secondList = document.querySelector('ul#completed_tasks');
+
 //Fetching notes from database
-function getNotes(){$.get( "/todolist/api/note/get_all.php", function(data){
-    for(i=0; i<(data.notes.length); i++){ //Iterating through notes in received array
-        status = (data.notes[i].status);
-        id = (data.notes[i].id);
-        itemFetch(data.notes[i].body); //Adding notes in document
-        
+function getNotes(){
+    if(firstList.childElementCount == 0 && secondList.childElementCount == 0){
+    var jwt = localStorage.getItem('jwt');
+    $.ajaxSetup({
+        headers:{
+           'Authorization': 'Bearer ' + jwt
+        }
+     });
+
+    $.get("/todolist/api/note/get_all.php", function(data){
+            for(i=0; i<(data.notes.length); i++){ //Iterating through notes in received array
+                status = (data.notes[i].status);
+                id = (data.notes[i].id);
+                itemFetch(data.notes[i].body); //Adding notes in document
+            }
+            hideListA(); //Checking whether list should be hidden or not
+            hideListB(); //Checking whether list should be hidden or not
+        }
+      );
     }
-    hideListA(); //Checking whether list should be hidden or not
-    hideListB(); //Checking whether list should be hidden or not
-})
 }
 
-getNotes();
+
+
+if(jwtCheck() == true){
+    document.querySelector("#submit_btn").style.display = "block";
+    document.querySelector("#main_input").style.display = "block";
+    $('h1').html("Welcome back " + jwtUsername +"!");
+    document.getElementById('logout').style.display = 'block';
+    document.getElementById('login').style.display = 'none';
+    document.getElementById('sign_up').style.display = 'none';
+    getNotes();
+}
+
+function clearNotes(){
+    $("ul").html('');
+    $("p").html('');
+}
 
 //SVG codes variable declaration
 
@@ -174,14 +205,7 @@ sub_button.addEventListener('click',function(){ //Event Listener
     var value = document.getElementById("main_input").value;//Grabbing input value
     var jwt = localStorage.getItem('jwt');
     //Adding item to list
-    function addFunc(){
-    if(value){
-        addItem(value)
-        main_input.value='' //Delete form input when submited
-        hideListA();
-        hideListB();
-    }; 
-}
+
     //Ajax Request
     $.ajax({
         type: "POST",
@@ -189,18 +213,22 @@ sub_button.addEventListener('click',function(){ //Event Listener
         beforeSend: function(request){          // Attaching JWT to header
             request.setRequestHeader('Authorization', 'Bearer ' + jwt)},
         data: JSON.stringify({"body" : value}),
-        success: addFunc()
+        success: function addFunc(){
+            if(value){
+                addItem(value)
+                main_input.value='' //Delete form input when submited
+                hideListA();
+                hideListB();
+                $('#empty_response').html("");
+            }; 
+        },
+        error: function(){
+            $('#empty_response').html("<div class='alert alert-danger'>Please enter a note!</div>");
+        }
       });
 })
 
-//Remove To-do title if list is empty
 
-var firstList = document.querySelector('ul#tasks');
-
-
-//Remove Done title if list is empty
-
-var secondList = document.querySelector('ul#completed_tasks');
 
 
 //Removing paragraphs functions (if lists are empty)
@@ -259,20 +287,31 @@ login.addEventListener('click', function(){
         type: "POST",
         url: "/todolist/api/user/login.php",
         data: JSON.stringify({"username" : username,"password" : password}),
-        success: function(result){localStorage.setItem("jwt", result.jwt);
-        $('#log_response').html("<div class='alert alert-success'>Successful login! You can now start creating tasks.</div>");
-        document.getElementById('logout').style.display = 'block';
-        document.getElementById('login').style.display = 'none';
-        document.getElementById('sign_up').style.display = 'none';
-        document.querySelector('#log_form').style.display = 'none';
-        document.querySelector('div#home_page').style.display = 'block';
-
+        success: function(result){
+            localStorage.setItem("jwt", result.jwt);
+            localStorage.setItem("username", result.username);
+            $('#log_response').html("<div class='alert alert-success'>Successful login! You can now start creating tasks at your homepage.</div>");
+            document.getElementById('logout').style.display = 'block';
+            document.getElementById('login').style.display = 'none';
+            document.getElementById('sign_up').style.display = 'none';
+            document.querySelector('#log_form').style.display = 'none';
+            document.querySelector('#log2_response').style.display = 'none';
+            document.querySelector('div#home_page').style.display = 'block';
+            document.querySelector('h1').style.display = 'none';
+            document.querySelector('#main_input').style.display = 'none';
+            document.querySelector('#submit_btn').style.display = 'none';
+            clearNotes();
+            jwtUsername = localStorage.getItem('username');
     },
         error: function(xhr, resp, text){
             // on error, tell the user login has failed & empty the input boxes
+            document.querySelector('div#home_page').style.display = 'block';
+            document.querySelector('h1').style.display = 'none';
+            document.querySelector('#main_input').style.display = 'none';
+            document.querySelector('#submit_btn').style.display = 'none';
             $('#log2_response').html("<div class='alert alert-danger'>Login failed. Username or password is incorrect.</div>");
-            document.getElementById('log_username').value=''
-            document.getElementById('log_password').value=''
+            document.getElementById('log_username').value='';
+            document.getElementById('log_password').value='';
     }
       });
       $('#logout_response').html('');
@@ -284,7 +323,9 @@ logout.addEventListener('click', function(){
     logout.style.display = 'none'
     document.getElementById('login').style.display = 'block';
     document.getElementById('sign_up').style.display = 'block';
+    document.querySelector('div#home_page').style.display = 'none';
     $('#log_response').html('');
+    clearNotes();
 })
 
 ///////Page elements toggling//////
@@ -309,27 +350,41 @@ document.getElementById("login").addEventListener('click', function(){
 
 //Homepage
 document.getElementById("home").addEventListener('click', function(){
-    document.querySelector('div#home_page').style.display = 'block';
+    if(jwtCheck() === true){
+        document.querySelector('div#home_page').style.display = 'block';
+        // document.querySelector('#tasks').style.display = 'block';
+        document.querySelector('#reg_form').style.display = 'none';
+        document.querySelector('#log_form').style.display = 'none';
+        document.querySelector('#submit_btn').style.display = 'block';
+        document.querySelector('#main_input').style.display = 'block';
+        // document.querySelector('#logout_response').style.display = 'none';
+        $('h1').html('Welcome back ' + jwtUsername + "!");
+        document.querySelector('h1').style.display = 'block';
+        $('#reg_response').html('');
+        $('#log_response').html('');
+        getNotes();
+    }else{$('#logout_response').html('');
+    $('#reg_response').html('');
+    document.querySelector('#home_page').style.display = 'block';
+    document.querySelector('h1').style.display = 'block';
+    $('h1').html('Welcome to my app. Please login to start using it!');
     document.querySelector('#reg_form').style.display = 'none';
     document.querySelector('#log_form').style.display = 'none';
-    $('#logout_response').html('');
-    $('#reg_response').html('');
+    document.querySelector('#submit_btn').style.display = 'none';
+    document.querySelector('#main_input').style.display = 'none';
+}
 })
 
-sub_button.click(function(){
+
+// Check for JWT key in local storage
+function jwtCheck(){
     var jwt = localStorage.getItem('jwt');
-    $.ajax({
-        url: '/todolist/api/note/create.php',
-        beforeSend: function(request){
-            request.setRequestHeader('Authorization', 'Bearer ' + jwt);
-        },
-        type: 'POST',
-        success: function(data) {
-            // Decode and show the returned data nicely.
-        },
-        error: function() {
-            alert('error');
-        }
-    });
-});
+    if(jwt){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+
 

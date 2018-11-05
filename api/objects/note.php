@@ -23,32 +23,18 @@ class Note{
     function get_all(){
 
         // select all query
-        $query = "SELECT id, body, status, user_id, created
-        FROM . $this->table_name";
+        $query = "SELECT * FROM $this->table_name WHERE user_id = ?";
 
         //prepare query statement
         $stmt = $this->conn->prepare($query);
+
+        $stmt->bindParam(1, $this->user_id);
 
         //execute query
         $stmt->execute();
 
         return $stmt;
 }
-
-// function get_user_notes(){
-
-//     // select all query
-//     $query = "SELECT id, body, status, user_id, created
-//     FROM . $this->table_name WHERE";
-
-//     //prepare query statement
-//     $stmt = $this->conn->prepare($query);
-
-//     //execute query
-//     $stmt->execute();
-
-//     return $stmt;
-// }
 
     function create(){
 

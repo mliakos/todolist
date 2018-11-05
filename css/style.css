@@ -65,7 +65,7 @@ button, input{
 
 #main_input {
     width: 30%;
-    display: block;
+    display: none;
     margin: 0 auto;
     margin-top: 10%;
     width: 450px;
@@ -76,7 +76,7 @@ button, input{
 
  #submit_btn{
     width: 30%;
-    display: block;
+    display: none;
     margin: 0 auto;
     margin-top: 30px;
     width: 90px;
