@@ -54,7 +54,7 @@ class Note{
         
          //execute query
          if($stmt->execute()){
-            return true;
+            return $this->conn->lastInsertId();
         }
 
         return false;

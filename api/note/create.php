@@ -90,13 +90,13 @@ if($jwt){
             $note->user_id = $user_id;
         
             // create the note
-            if($note->create()){
-        
+            if($id = $note->create()){
+                
                 // set response code - 201 created
                 http_response_code(201);
         
                 // tell the user
-                echo json_encode(array("uid = ".$user_id => "Note was created."));
+                echo json_encode(array("uid = ".$user_id => "Note was created.", "id" => $id));
             }
         
             // if unable to create the note, tell the user

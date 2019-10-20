@@ -127,10 +127,11 @@ function itemFetch(value){
 }
 
 //Front-end only JS li appending
-function addItem(value) {
+function addItem(value, id) {
     var list =  document.getElementById('tasks'); //Define item list as "To-Do"
     var item = document.createElement('li'); //List Item
     item.innerText = value; //<li> value
+    item.setAttribute("id", id);
     
     var buttons = document.createElement('div'); // Div
     buttons.classList.add('buttons'); // class = "buttons"
@@ -213,9 +214,9 @@ sub_button.addEventListener('click',function(){ //Event Listener
         beforeSend: function(request){          // Attaching JWT to header
             request.setRequestHeader('Authorization', 'Bearer ' + jwt)},
         data: JSON.stringify({"body" : value}),
-        success: function addFunc(){
+        success: function addFunc(res){
             if(value){
-                addItem(value)
+                addItem(value, res.id)
                 main_input.value='' //Delete form input when submited
                 hideListA();
                 hideListB();
@@ -236,14 +237,21 @@ sub_button.addEventListener('click',function(){ //Event Listener
 
 function hideListA(){
     if(firstList.childElementCount > 0){
-        document.querySelector('p#todo').style.display='block'}
-    else{document.querySelector('p#todo').style.display='none'}
+        document.querySelector('p#todo').style.display='block';
+        document.querySelector('p#todo').innerText = 'To-Do';
+    }
+    else{
+        document.querySelector('p#todo').style.display='none';
+    }
 }
 
 function hideListB(){
     if(secondList.childElementCount > 0){
-        document.querySelector('p#done').style.display='block'}
-    else{document.querySelector('p#done').style.display='none'}  
+        document.querySelector('p#done').style.display='block'
+        document.querySelector('p#done').innerText = 'Done';
+    }
+    else{document.querySelector('p#done').style.display='none';
+}  
 }
 
 var register = document.getElementById('registerbtn');
